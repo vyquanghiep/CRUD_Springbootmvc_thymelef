@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>edit</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<h2 align="center"> Edit danh mục</h2>
+<hr>
+<form action="#" th:action="@{/saveDanhmuc}" th:object = "${danhmuc}" method="POST">
+
+    <div class="form-group">
+        <input type="hidden" th:field="*{iddanhmuc}" >
+
+        <input type="text" th:field="*{tendanhmuc}" class="form-control mb-4 col-4">
+    </div>
+
+    <button type="submit" class="btn btn-success">Update</button>
+</form>
+<hr>
+<a th:href ="@{/listdm}"> Back</a>
+
+</body>
+</html>

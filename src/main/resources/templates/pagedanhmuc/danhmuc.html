@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>My Try</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div align="center">
+    <h1 >Quản lý danh mục</h1>
+    </div>
+    <a th:href="@{/showNewDmform}" class="btn btn-success">Add Danh mục</a>
+    <hr>
+    <form th:action="@{/listdm}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Find by Owner Name & Shop Type" size="50" >
+        <button type="submit" class="btn btn-info" >Search</button>
+        <button type="submit" class="btn btn-info" >Reset</button>
+    </form>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Mã danh mục</th>
+            <th>Tên danh mục</th>
+            <th>Edit danh mục</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dm: ${list}">
+            <td th:text="${dm.iddanhmuc}"></td>
+            <td th:text="${dm.tendanhmuc}"></td>
+            <td><div class="btn-group">
+                <a th:href="@{/showDmformUpdate/{id}(id=${dm.iddanhmuc})}" class="btn btn-warning">Edit</a>
+                <a th:href="@{/deleteDanhmuc/{id}(id=${dm.iddanhmuc})}" class="btn btn-danger">Delete</a>
+            </div></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
