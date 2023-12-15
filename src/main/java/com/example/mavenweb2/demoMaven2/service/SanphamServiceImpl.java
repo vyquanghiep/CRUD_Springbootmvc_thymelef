@@ -1,55 +1,38 @@
 package com.example.mavenweb2.demoMaven2.service;
 
+
 import com.example.mavenweb2.demoMaven2.model.Loaisanpham;
 import com.example.mavenweb2.demoMaven2.model.Sanpham;
 import com.example.mavenweb2.demoMaven2.repository.SanphamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class SanphamServiceImpl implements SanphamService{
     @Autowired
-    private SanphamRepository repository;
+    private SanphamRepository reposp;
 
     public Sanpham saveSanpham(Sanpham sanpham) {
-        return repository.save(sanpham);
+        return reposp.save(sanpham);
     }
-
-//    public List<Sanpham> saveSanphams(List<Sanpham> sanphams) {
-//        return repository.saveAll(sanphams);
-//    }
 
     public List<Sanpham> getSanphams() {
-        return repository.findAll();
+        return reposp.findAll();
     }
 
+    @Override
     public Sanpham getSanphamById(int id) {
-        Optional<Sanpham> optional = repository.findById(id);
-        Sanpham sanpham = null;
-        if (optional.isPresent()) {
-            sanpham = optional.get();
-        }else {
-            throw new RuntimeException("Product not found id::"+id);
-        }
-        return sanpham;
+            return reposp.findById(id).orElseThrow(()->new RuntimeException("not found"));
     }
-
-    public Sanpham getSanphamByName(String tensanpham) {
-        return repository.findByTensanpham(tensanpham);
-    }
-
     public String deleteSanpham(int id) {
-        repository.deleteById(id);
+        reposp.deleteById(id);
         return "Sản phẩm remove ||" + id;
     }
+    public List<Sanpham> getByKeyword(String keyword) {
+        return reposp.findByKeyword(keyword);
+    }
 
-//    public Sanpham updateSanpham(Sanpham sanpham) {
-//        Sanpham existingSanpham = repository.findById(sanpham.getIdsanpham()).orElse(null);
-//        existingSanpham.setTensanpham(sanpham.getTensanpham());
-//        existingSanpham.setGia(sanpham.getGia());
-//        return repository.save(existingSanpham);
-//    }
+
 }

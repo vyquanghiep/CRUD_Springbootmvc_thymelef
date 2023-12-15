@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
 
 <head>
     <title>My Web</title>
@@ -11,12 +11,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-sm bg-light">
+<ul class="navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/listdm}">QL danh mục</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/listlsp}">QL Loại sản phẩm</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#" th:href="@{/listsp}">QL sản phẩm</a>
+    </li>
+</ul>
+</nav>
 <div class="container">
     <div align="center">
         <h1 >Quản lý sản phẩm</h1>
     </div>
     <a th:href="@{/showNewSpform}" class="btn btn-success">Add sản phẩm</a>
     <hr>
+    <form th:action="@{/listsp}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Tìm kiếm loại sản phẩm" size="50" >
+        <button type="submit" class="btn btn-info" >Search</button>
+        <a th:href ="@{/listsp}" class="btn btn-info"> Reset</a>
+    </form>
     <table class="table table-bordered">
         <thead class="table-dark">
         <tr>
@@ -29,20 +47,20 @@
         </tr>
         </thead>
         <tbody>
-        <th:block th:each="sp: ${listSanphams}">
-        <tr>
-            <td th:text="${sp.idsanpham}"></td>
-            <td th:text="${sp.tensanpham}"></td>
-            <td th:text="${sp.gia}"></td>
-            <td th:text="${sp.danhmuc.tendanhmuc}"></td>
-            <td th:text="${sp.loaisanpham.tenloaisanpham}"></td>
 
-            <td><div class="btn-group">
-                <a th:href="@{/showSpformUpdate/{id}(id=${sp.idsanpham})}" class="btn btn-warning">Edit</a>
-                <a th:href="@{/deleteSanpham/{id}(id=${sp.idsanpham})}" class="btn btn-danger">Delete</a>
-            </div></td>
-        </tr>
-        </th:block>
+            <tr th:each="sp: ${listSanphams}">
+                <td th:text="${sp.idsanpham}"></td>
+                <td th:text="${sp.tensanpham}"></td>
+                <td th:text="${sp.gia}"></td>
+                <td th:text="${sp.danhmuc.tendanhmuc}"></td>
+                <td th:text="${sp.loaisanpham.tenloaisanpham}"></td>
+
+                <td><div class="btn-group">
+                    <a th:href="@{/showSpformUpdate/{id}(id=${sp.idsanpham})}" class="btn btn-warning">Edit</a>
+                    <a th:href="@{/deleteSanpham/{id}(id=${sp.idsanpham})}" class="btn btn-danger">Delete</a>
+                </div></td>
+            </tr>
+
         </tbody>
     </table>
 </div>

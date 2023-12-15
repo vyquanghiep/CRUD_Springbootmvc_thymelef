@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface LoaisanphamService {
     public Loaisanpham saveLoaisanpham(Loaisanpham loaisanpham);
+
     public List<Loaisanpham> getLoaisanphams();
 
     Loaisanpham  getLoaisanphamById(int id);
 
-    Loaisanpham  getLoaisanphamByName(String name);
-
     String deleteLoaisanpham(int id);
 
-//    Page<Loaisanpham> getAll(Integer pageNo);
+    List<Loaisanpham> getByKeyword(String keyword);
+
 }

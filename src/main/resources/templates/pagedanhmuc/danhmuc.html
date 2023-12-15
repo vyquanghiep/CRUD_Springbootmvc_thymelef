@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
-    <title>My Try</title>
+    <title>My Web</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -11,6 +11,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-sm bg-light">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/listdm}">QL danh mục</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/listlsp}">QL Loại sản phẩm</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/listsp}">QL sản phẩm</a>
+        </li>
+    </ul>
+</nav>
 <div class="container">
     <div align="center">
     <h1 >Quản lý danh mục</h1>
@@ -18,9 +31,9 @@
     <a th:href="@{/showNewDmform}" class="btn btn-success">Add Danh mục</a>
     <hr>
     <form th:action="@{/listdm}" method="get">
-        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Find by Owner Name & Shop Type" size="50" >
+        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Tìm kiếm danh mục" size="50" >
         <button type="submit" class="btn btn-info" >Search</button>
-        <button type="submit" class="btn btn-info" >Reset</button>
+        <a th:href ="@{/listdm}" class="btn btn-info"> Reset</a>
     </form>
     <table class="table table-bordered">
         <thead class="table-dark">

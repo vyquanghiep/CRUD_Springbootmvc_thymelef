@@ -18,11 +18,11 @@ public class Loaisanpham {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idloaisanpham;
+
     @Column(name="tenloaisanpham")
     private String tenloaisanpham;
 
     @OneToMany(mappedBy = "loaisanpham",cascade = CascadeType.ALL)
-   @JsonManagedReference
    private List<Sanpham> sanpham;
 
 }
