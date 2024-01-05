@@ -10,30 +10,29 @@ import java.util.List;
 @Service
 public class DanhmucServiceImpl implements DanhmucService {
     @Autowired
-    private DanhmucRepository repodm;
+    private DanhmucRepository danhmucRepository;
 
     public Danhmuc saveDanhmuc(Danhmuc danhmuc) {
-        return repodm.save(danhmuc);
+        return danhmucRepository.save(danhmuc);
     }
 
 
     public List<Danhmuc> getDanhmucs() {
-        return repodm.findAll();
-
+        return danhmucRepository.findAll();
     }
 
     public Danhmuc getDanhmucById(int id) {
-        return repodm.findById(id).orElseThrow(()->new RuntimeException("not found"));
+        return danhmucRepository.findById(id).orElseThrow(()->new RuntimeException("not found"));
 
     }
     public String deleteDanhmuc(int id) {
-        repodm.deleteById(id);
+        danhmucRepository.deleteById(id);
         return "Danh muc remove ||" + id;
     }
 
     //search by key
     public List<Danhmuc> getByKeyword(String keyword) {
-        return repodm.findByKeyword(keyword);
+        return danhmucRepository.findByKeyword(keyword);
     }
 
 

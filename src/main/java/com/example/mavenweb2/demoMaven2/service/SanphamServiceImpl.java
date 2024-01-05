@@ -1,7 +1,7 @@
 package com.example.mavenweb2.demoMaven2.service;
 
 
-import com.example.mavenweb2.demoMaven2.model.Loaisanpham;
+
 import com.example.mavenweb2.demoMaven2.model.Sanpham;
 import com.example.mavenweb2.demoMaven2.repository.SanphamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +12,29 @@ import java.util.List;
 @Service
 public class SanphamServiceImpl implements SanphamService{
     @Autowired
-    private SanphamRepository reposp;
+    private SanphamRepository sanphamRepository;
 
     public Sanpham saveSanpham(Sanpham sanpham) {
-        return reposp.save(sanpham);
+        return sanphamRepository.save(sanpham);
     }
 
     public List<Sanpham> getSanphams() {
-        return reposp.findAll();
+        return sanphamRepository.findAll();
     }
 
     @Override
     public Sanpham getSanphamById(int id) {
-            return reposp.findById(id).orElseThrow(()->new RuntimeException("not found"));
+            return sanphamRepository.findById(id).orElseThrow(()->new RuntimeException("not found"));
     }
+
+        @Override
     public String deleteSanpham(int id) {
-        reposp.deleteById(id);
+        sanphamRepository.deleteById(id);
         return "Sản phẩm remove ||" + id;
     }
+
     public List<Sanpham> getByKeyword(String keyword) {
-        return reposp.findByKeyword(keyword);
+        return sanphamRepository.findByKeyword(keyword);
     }
 
 

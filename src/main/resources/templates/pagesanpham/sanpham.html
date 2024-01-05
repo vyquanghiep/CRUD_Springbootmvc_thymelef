@@ -14,13 +14,13 @@
 <nav class="navbar navbar-expand-sm bg-light">
 <ul class="navbar-nav">
     <li class="nav-item">
-        <a class="nav-link" href="#" th:href="@{/listdm}">QL danh mục</a>
+        <a class="nav-link" href="#" th:href="@{/danhmuc/listdm}">QL danh mục</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#" th:href="@{/listlsp}">QL Loại sản phẩm</a>
+        <a class="nav-link" href="#" th:href="@{/loaisanpham/listlsp}">QL Loại sản phẩm</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#" th:href="@{/listsp}">QL sản phẩm</a>
+        <a class="nav-link" href="#" th:href="@{/sanpham/listsp}">QL sản phẩm</a>
     </li>
 </ul>
 </nav>
@@ -28,12 +28,12 @@
     <div align="center">
         <h1 >Quản lý sản phẩm</h1>
     </div>
-    <a th:href="@{/showNewSpform}" class="btn btn-success">Add sản phẩm</a>
+    <a th:href="@{/sanpham/add}" class="btn btn-success">Add sản phẩm</a>
     <hr>
-    <form th:action="@{/listsp}" method="get">
-        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Tìm kiếm loại sản phẩm" size="50" >
+    <form th:action="@{/sanpham/listsp}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}"  placeholder="Tìm kiếm sản phẩm" size="50" >
         <button type="submit" class="btn btn-info" >Search</button>
-        <a th:href ="@{/listsp}" class="btn btn-info"> Reset</a>
+        <a th:href ="@{/sanpham/listsp}" class="btn btn-info"> Reset</a>
     </form>
     <table class="table table-bordered">
         <thead class="table-dark">
@@ -56,8 +56,8 @@
                 <td th:text="${sp.loaisanpham.tenloaisanpham}"></td>
 
                 <td><div class="btn-group">
-                    <a th:href="@{/showSpformUpdate/{id}(id=${sp.idsanpham})}" class="btn btn-warning">Edit</a>
-                    <a th:href="@{/deleteSanpham/{id}(id=${sp.idsanpham})}" class="btn btn-danger">Delete</a>
+                    <a th:href="@{/sanpham/update/{id}(id=${sp.idsanpham})}" class="btn btn-warning">Edit</a>
+                    <a th:href="@{/sanpham/delete/{id}(id=${sp.idsanpham})}" class="btn btn-danger">Delete</a>
                 </div></td>
             </tr>
 

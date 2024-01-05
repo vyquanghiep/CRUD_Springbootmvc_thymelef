@@ -1,8 +1,6 @@
 package com.example.mavenweb2.demoMaven2.controller;
 
 
-
-
 import com.example.mavenweb2.demoMaven2.model.Danhmuc;
 import com.example.mavenweb2.demoMaven2.model.Loaisanpham;
 import com.example.mavenweb2.demoMaven2.model.Sanpham;
@@ -17,64 +15,64 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-
+@RequestMapping("/sanpham")
 public class SanphamController {
     @Autowired
-    private SanphamServiceImpl spservice;
+    private SanphamServiceImpl sanphamService;
 
     @Autowired
-    private DanhmucService dmservice;
+    private DanhmucService danhmucService;
 
     @Autowired
-    private LoaisanphamService lspservice;
+    private LoaisanphamService loaisanphamService;
 
     @RequestMapping(value = "/listsp", method = RequestMethod.GET)
-    public String listSanphams(Model model,@Param("keyword") String keyword ){
+    public String viewspPage(Model model,@Param("keyword") String keyword ){
         if(keyword!=null) {
-            List<Sanpham> listSanphams = spservice.getByKeyword(keyword);
+            List<Sanpham> listSanphams = sanphamService.getByKeyword(keyword);
             model.addAttribute("listSanphams", listSanphams);
         }else {
-            List<Sanpham> listSanphams = spservice.getSanphams();
+            List<Sanpham> listSanphams = sanphamService.getSanphams();
             model.addAttribute("listSanphams",listSanphams );
         }
-
         return "pagesanpham/Sanpham";
     }
-    @GetMapping("/showNewSpform")
-    public String showNewSpform(Model model) {
+    @GetMapping("/add")
+    public String addSanpham(Model model) {
 
-        List<Loaisanpham> listloaisanpham = lspservice.getLoaisanphams();
+        List<Loaisanpham> listloaisanpham = loaisanphamService.getLoaisanphams();
         //creat modle
-        List<Danhmuc> listdanhmucs = dmservice.getDanhmucs();
+        List<Danhmuc> listdanhmucs = danhmucService.getDanhmucs();
         Sanpham sanpham = new Sanpham();
         model.addAttribute("sanpham",sanpham);
         model.addAttribute("listdanhmucs",listdanhmucs);
         model.addAttribute("listloaisanpham",listloaisanpham);
-        return "pagesanpham/AddSanpham";
+        return "pagesanpham/Sanpham_form";
     }
-    @PostMapping("/saveSanpham")
+    @PostMapping("/save")
     public String saveSanpham(@ModelAttribute("sanpham") Sanpham sanpham) {
 
-        spservice.saveSanpham(sanpham);
-        return "redirect:/listsp";
+        sanphamService.saveSanpham(sanpham);
+        return "redirect:/sanpham/listsp";
     }
 
-    @GetMapping("/showSpformUpdate/{id}")
-    public String showSpformUpdate(@PathVariable (value = "id") int id, Model model){
+    @GetMapping("/update/{id}")
+    public String updateSanpham(@PathVariable (value = "id") int id, Model model){
         //creat modle
-        Sanpham sanpham = spservice.getSanphamById(id);
-        List<Loaisanpham> listloaisanpham = lspservice.getLoaisanphams();
-        List<Danhmuc> listdanhmucs = dmservice.getDanhmucs();
+        Sanpham sanpham = sanphamService.getSanphamById(id);
+        List<Loaisanpham> listloaisanpham = loaisanphamService.getLoaisanphams();
+        List<Danhmuc> listdanhmucs = danhmucService.getDanhmucs();
         model.addAttribute("sanpham",sanpham);
         model.addAttribute("listdanhmucs",listdanhmucs);
         model.addAttribute("listloaisanpham",listloaisanpham);
-        return "pagesanpham/EditSanpham";
+        return "pagesanpham/Sanpham_form";
     }
 
-    @GetMapping("/deleteSanpham/{id}")
-    public String deleteSanpham(@PathVariable (value = "id") long id){
-        this.spservice.deleteSanpham((int) id);
-        return "redirect:/listsp";
+    @GetMapping("/delete/{id}")
+    public String deleteSanpham(@PathVariable (value = "id") int id){
+        this.sanphamService.deleteSanpham(id);
+        return "redirect:/sanpham/listsp";
     }
+
 
 }
