@@ -1,11 +1,12 @@
-package com.example.mavenweb2.demoMaven2.service;
+package com.example.SpringbootRestful.service;
 
 
 
-import com.example.mavenweb2.demoMaven2.model.Sanpham;
-import com.example.mavenweb2.demoMaven2.repository.SanphamRepository;
+import com.example.SpringbootRestful.model.Sanpham;
+import com.example.SpringbootRestful.repository.SanphamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 
@@ -14,13 +15,16 @@ public class SanphamServiceImpl implements SanphamService{
     @Autowired
     private SanphamRepository sanphamRepository;
 
+    @Override
     public Sanpham saveSanpham(Sanpham sanpham) {
         return sanphamRepository.save(sanpham);
     }
 
+    @Override
     public List<Sanpham> getSanphams() {
         return sanphamRepository.findAll();
     }
+
 
     @Override
     public Sanpham getSanphamById(int id) {
@@ -33,6 +37,7 @@ public class SanphamServiceImpl implements SanphamService{
         return "Sản phẩm remove ||" + id;
     }
 
+    @Override
     public List<Sanpham> getByKeyword(String keyword) {
         return sanphamRepository.findByKeyword(keyword);
     }

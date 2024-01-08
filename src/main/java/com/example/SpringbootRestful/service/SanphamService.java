@@ -1,7 +1,9 @@
-package com.example.mavenweb2.demoMaven2.service;
+package com.example.SpringbootRestful.service;
 
-import com.example.mavenweb2.demoMaven2.model.Loaisanpham;
-import com.example.mavenweb2.demoMaven2.model.Sanpham;
+
+
+import com.example.SpringbootRestful.model.Sanpham;
+
 import java.util.List;
 
 public interface SanphamService {

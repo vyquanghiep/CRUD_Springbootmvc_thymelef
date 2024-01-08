@@ -1,10 +1,10 @@
-package com.example.mavenweb2.demoMaven2;
+package com.example.SpringbootRestful;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoMaven2ApplicationTests {
+class SpringbootRestfulApplicationTests {
 
 	@Test
 	void contextLoads() {

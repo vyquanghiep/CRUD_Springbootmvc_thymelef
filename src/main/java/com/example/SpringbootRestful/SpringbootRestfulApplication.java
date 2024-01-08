@@ -1,13 +1,13 @@
-package com.example.mavenweb2.demoMaven2;
+package com.example.SpringbootRestful;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoMaven2Application {
+public class SpringbootRestfulApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoMaven2Application.class, args);
+		SpringApplication.run(SpringbootRestfulApplication.class, args);
 	}
 
 }

@@ -1,9 +1,13 @@
-package com.example.mavenweb2.demoMaven2.model;
+package com.example.SpringbootRestful.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -21,7 +25,10 @@ public class Danhmuc {
     private String tendanhmuc;
 
     @OneToMany(mappedBy = "danhmuc",cascade = CascadeType.ALL)
-    private List<Sanpham> sanpham;
+    private Set<Sanpham> sanpham;
+
+
+
 }
 
 

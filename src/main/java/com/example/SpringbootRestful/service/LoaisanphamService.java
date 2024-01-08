@@ -1,9 +1,8 @@
-package com.example.mavenweb2.demoMaven2.service;
+package com.example.SpringbootRestful.service;
 
-import com.example.mavenweb2.demoMaven2.model.Danhmuc;
-import com.example.mavenweb2.demoMaven2.model.Loaisanpham;
-import com.example.mavenweb2.demoMaven2.model.Sanpham;
-import org.springframework.data.domain.Page;
+
+
+import com.example.SpringbootRestful.model.Loaisanpham;
 
 import java.util.List;
 

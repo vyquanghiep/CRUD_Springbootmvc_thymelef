@@ -1,7 +1,8 @@
-package com.example.mavenweb2.demoMaven2.repository;
+package com.example.SpringbootRestful.repository;
 
 
-import com.example.mavenweb2.demoMaven2.model.Sanpham;
+
+import com.example.SpringbootRestful.model.Sanpham;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
