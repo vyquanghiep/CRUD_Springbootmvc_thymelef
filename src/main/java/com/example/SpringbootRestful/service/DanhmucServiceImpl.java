@@ -3,7 +3,10 @@ package com.example.SpringbootRestful.service;
 
 import com.example.SpringbootRestful.model.Danhmuc;
 
+import com.example.SpringbootRestful.model.Sanpham;
 import com.example.SpringbootRestful.repository.DanhmucRepository;
+import com.example.SpringbootRestful.repository.SanphamRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,8 @@ public class DanhmucServiceImpl implements DanhmucService {
     @Autowired
     private DanhmucRepository danhmucRepository;
 
+    @Autowired
+    private SanphamRepository sanphamRepository;
     @Override
     public Danhmuc saveDanhmuc(Danhmuc danhmuc) {
         return danhmucRepository.save(danhmuc);
@@ -38,6 +43,27 @@ public class DanhmucServiceImpl implements DanhmucService {
     //search by key
     public List<Danhmuc> getByKeyword(String keyword) {
         return danhmucRepository.findByKeyword(keyword);
+    }
+
+
+
+    public List<Sanpham> getSanphamsByIddanhmuc(int iddanhmuc) {
+        return sanphamRepository.findByDanhmuc_Iddanhmuc(iddanhmuc);
+    }
+
+    @Override
+    public void deleteDanhmucAndSanphams(int iddanhmuc) {
+        Danhmuc danhmuc = danhmucRepository.findById(iddanhmuc).orElse(null);
+        if (danhmuc != null) {
+            // Lấy danh sách sản phẩm liên quan
+            List<Sanpham> sanphams = getSanphamsByIddanhmuc(iddanhmuc);
+
+            // Xoá danh sách sản phẩm liên quan
+            sanphamRepository.deleteAll(sanphams);
+
+            // Xoá danh mục
+            danhmucRepository.delete(danhmuc);
+        }
     }
 
 

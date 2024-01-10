@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loại sản phẩm form</title>
+    <!-- Thêm link CSS của Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Thêm thư viện jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Thêm script của Bootstrap 4 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/danhmuc/list}">QL danh mục</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/loaisanpham/list}">QL Loại sản phẩm</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/sanpham/list}">QL sản phẩm</a>
+        </li>
+
+    </ul>
+</nav>
+<div class="container  text-center">
+    <div th:if="${loaisanpham.idloaisanpham == null}"><h1>Create New Category</h1></div>
+    <div th:if="${loaisanpham.idloaisanpham != null}"><h1>Edit Category</h1></div>
+    <div class="row">
+        <div class="col-sm-4">
+
+            <form id="frmloaisanpham" name="frmloaisanpham" th:object = "${loaisanpham}">
+                <div class="form-group">
+                    <input type="hidden" id="idloaisanpham" name="idloaisanpham" class="form-control" th:field="*{idloaisanpham}" required> >
+                    <label for="tenloaisanpham">Tên loại sản phẩm</label>
+                    <input type="text" id="tenloaisanpham" name="tenloaisanpham"  class="form-control" th:field="*{tenloaisanpham}" required>
+                </div>
+                <div class="form-group">
+                    <div th:if="${loaisanpham.idloaisanpham == null}"><a id="save" onclick="addloaisanpham()" class="btn btn-success">Save</a> <a class="btn btn-success" th:href="@{/loaisanpham/list}">Back</a></div>
+                    <div th:unless="${loaisanpham.idloaisanpham == null}"><a id="update" onclick="updateloaisanpham()" class="btn btn-success" >Save</a> <a class="btn btn-success" th:href="@{/loaisanpham/list}">Back</a></div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function addloaisanpham() {
+        var tenloaisanpham = $("#tenloaisanpham").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/loaisanpham/save",
+            contentType: "application/json",
+            data: JSON.stringify({ "tenloaisanpham": tenloaisanpham }),
+            success: function () {
+                window.location.href = "/loaisanpham/list";
+
+            },
+            error: function (error) {
+                console.log("Error adding danh muc:", error);
+            }
+        });
+    }
+
+    function updateloaisanpham() {
+        var idloaisanpham = $("#idloaisanpham").val(); // Lấy giá trị từ trường input ẩn
+        var tenloaisanpham = $("#tenloaisanpham").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/loaisanpham/save",
+            contentType: "application/json",
+            data: JSON.stringify({ "idloaisanpham": idloaisanpham, "tenloaisanpham": tenloaisanpham }),
+            success: function () {
+                window.location.href = "/loaisanpham/list";
+            },
+            error: function (error) {
+                console.log("Error updating danh muc:", error);
+            }
+        });
+    }
+    $(document).ready(function () {
+        var urlParams = new URLSearchParams(window.location.search);
+        var idloaisanpham = urlParams.get('id');
+        if (idloaisanpham) {
+            editloaisanpham(idloaisanpham);
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

@@ -13,4 +13,8 @@ public interface SanphamRepository extends JpaRepository<Sanpham, Integer> {
 
     @Query(value = "select * from sanpham sp where sp.tensanpham like %:keyword% ", nativeQuery = true)
     List<Sanpham> findByKeyword(@Param("keyword") String keyword);
+
+    List<Sanpham> findByDanhmuc_Iddanhmuc(int iddanhmuc);
+
+    List<Sanpham> findByLoaisanpham_Idloaisanpham(int idloaisanpham);
 }

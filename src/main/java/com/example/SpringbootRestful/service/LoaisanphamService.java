@@ -17,4 +17,6 @@ public interface LoaisanphamService {
 
     List<Loaisanpham> getByKeyword(String keyword);
 
+    void deleteLoaisanphamAndSanphams(int id);
+
 }

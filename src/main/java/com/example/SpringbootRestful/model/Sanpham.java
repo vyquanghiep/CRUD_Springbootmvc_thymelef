@@ -1,5 +1,6 @@
 package com.example.SpringbootRestful.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +28,8 @@ public class Sanpham {
     private Danhmuc danhmuc;
 
     @ManyToOne
-    @JoinColumn(name = "idloaisanpham")
+    @JoinColumn(name = "idloaisanpham" )
     private Loaisanpham loaisanpham;
+
 
 }

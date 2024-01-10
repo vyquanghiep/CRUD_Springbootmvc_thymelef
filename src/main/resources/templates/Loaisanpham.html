@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý danh mục</title>
+    <title>Quản lý loai sản phẩm</title>
     <!-- Thêm link CSS của Bootstrap 4 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Thêm thư viện jQuery -->
@@ -31,16 +31,16 @@
 <br/>
 <div class="container">
     <div align="center">
-        <h1 >Quản lý danh mục</h1>
-         <div class="row">
+        <h1 >Quản lý loại sản phẩm</h1>
+        <div class="row">
             <div class="col">
                 <button type="button" class="btn btn-success mb-2" onclick="openForm()">Add</button>
                 <div class="panel-body">
-                    <table id="tbl-danhmuc" class="table table-bordered">
+                    <table id="tbl-loaisanpham" class="table table-bordered">
                         <thead class="table-dark">
-                        <tr><th>Mã danh mục</th><th>Tên danh mục</th><th>Sửa</th><th>Xóa</th></tr>
+                        <tr><th>Mã loại sản phẩm</th><th>Tên loại sản phẩm</th><th>Sửa</th><th>Xóa</th></tr>
                         </thead>
-                        <tbody id="tbl-danhmuc-body"></tbody>
+                        <tbody id="tbl-loaisanpham-body"></tbody>
                     </table>
                 </div>
             </div>
@@ -50,20 +50,20 @@
 
 <script>
 
-    function loadDanhmucs() {
+    function loadloaisanphams() {
         $.ajax({
             type: "GET",
-            url: "/danhmuc/",
+            url: "/loaisanpham/",
             success: function (data) {
-                $("#tbl-danhmuc-body").empty();
-                $.each(data, function (index, danhmuc) {
-                    $("#tbl-danhmuc-body").append(
+                $("#tbl-loaisanpham-body").empty();
+                $.each(data, function (index, loaisanpham) {
+                    $("#tbl-loaisanpham-body").append(
                         "<tr>" +
-                        "<td>" + danhmuc.iddanhmuc + "</td>" +
-                        "<td>" + danhmuc.tendanhmuc + "</td>" +
-                        "<td><button type='button' class='btn btn-warning' onclick='editDanhmuc(" + danhmuc.iddanhmuc + ")'>Edit</button></td>" +
-                        // "<td><a th:href='@{/danhmuc/update/{id}(id=${danhmuc.iddanhmuc})}' class='btn btn-warning' >Edit</a></td>"+
-                        "<td><button type='button' class='btn btn-danger' onclick='deleteDanhmuc(" + danhmuc.iddanhmuc + ")'>Delete</button></td>" +
+                        "<td>" + loaisanpham.idloaisanpham + "</td>" +
+                        "<td>" + loaisanpham.tenloaisanpham + "</td>" +
+                        "<td><button type='button' class='btn btn-warning' onclick='editloaisanpham(" + loaisanpham.idloaisanpham + ")'>Edit</button></td>" +
+                        // "<td><a th:href='@{/loaisanpham/update/{id}(id=${loaisanpham.idloaisanpham})}' class='btn btn-warning' >Edit</a></td>"+
+                        "<td><button type='button' class='btn btn-danger' onclick='deleteloaisanpham(" + loaisanpham.idloaisanpham + ")'>Delete</button></td>" +
                         "</tr>"
                     );
                 });
@@ -75,32 +75,32 @@
     }
 
     $(document).ready(function () {
-        loadDanhmucs();
+        loadloaisanphams();
     });
     function openForm() {
 
 
-        window.location.href = "/danhmuc/form";
+        window.location.href = "/loaisanpham/form";
 
     }
 
-    function editDanhmuc(iddanhmuc) {
+    function editloaisanpham(idloaisanpham) {
 
-            // Chuyển hướng đến trang DanhmucForm.html với tham số iddanhmuc trong URL
-            window.location.href = "/danhmuc/form/" + iddanhmuc;
+        // Chuyển hướng đến trang loaisanphamForm.html với tham số idloaisanpham trong URL
+        window.location.href = "/loaisanpham/form/" + idloaisanpham;
 
     }
 
 
-    function deleteDanhmuc(iddanhmuc) {
+    function deleteloaisanpham(idloaisanpham) {
         $.ajax({
             type: "DELETE",
-            url: "/danhmuc/" + iddanhmuc,
+            url: "/loaisanpham/" + idloaisanpham,
             success: function () {
-                loadDanhmucs();
+                loadloaisanphams();
             },
             error: function (error) {
-                console.log("Error deleting danh muc:", error);
+                console.log("Error deleting loại sản pham :", error);
             }
         });
     }

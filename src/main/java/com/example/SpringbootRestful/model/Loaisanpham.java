@@ -1,11 +1,13 @@
 package com.example.SpringbootRestful.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,7 +22,9 @@ public class Loaisanpham {
     @Column(name="tenloaisanpham")
     private String tenloaisanpham;
 
-    @OneToMany(mappedBy = "loaisanpham",cascade = CascadeType.ALL)
-   private List<Sanpham> sanpham;
+//    @OneToMany(mappedBy = "loaisanpham",cascade = CascadeType.ALL)
+//    private Set<Sanpham> sanpham;
+
+
 
 }

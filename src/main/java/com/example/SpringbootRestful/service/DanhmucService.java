@@ -15,6 +15,7 @@ public interface DanhmucService {
     String deleteDanhmuc(int id);
 
     List<Danhmuc> getByKeyword(String keyword);
+    void deleteDanhmucAndSanphams(int iddanhmuc);
 
 
 

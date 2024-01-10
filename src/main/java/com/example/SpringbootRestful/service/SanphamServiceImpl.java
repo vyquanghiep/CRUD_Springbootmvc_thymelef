@@ -31,7 +31,7 @@ public class SanphamServiceImpl implements SanphamService{
             return sanphamRepository.findById(id).orElseThrow(()->new RuntimeException("not found"));
     }
 
-        @Override
+    @Override
     public String deleteSanpham(int id) {
         sanphamRepository.deleteById(id);
         return "Sản phẩm remove ||" + id;

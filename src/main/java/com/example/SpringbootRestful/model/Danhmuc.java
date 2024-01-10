@@ -1,10 +1,9 @@
 package com.example.SpringbootRestful.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -12,23 +11,25 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="danhmuc")
+@Table(name = "danhmuc")
 public class Danhmuc {
 
-    @Id //Đánh dấu là primary key
-    @GeneratedValue(strategy = GenerationType.IDENTITY)// Giúp tự động tăng
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "iddanhmuc")
     private int iddanhmuc;
 
     @Column(name = "tendanhmuc")
     private String tendanhmuc;
 
-    @OneToMany(mappedBy = "danhmuc",cascade = CascadeType.ALL)
-    private Set<Sanpham> sanpham;
-
-
-
+//    @OneToMany(mappedBy = "danhmuc", cascade = CascadeType.ALL)
+//    private List<Sanpham> sanpham;
 }
+
+
+
+
+
+
 
 
