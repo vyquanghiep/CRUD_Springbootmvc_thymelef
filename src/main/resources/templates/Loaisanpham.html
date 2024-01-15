@@ -34,7 +34,7 @@
         <h1 >Quản lý loại sản phẩm</h1>
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-success mb-2" onclick="openForm()">Add</button>
+                <div align="left"><button type="button" class="btn btn-success mb-2" onclick="openForm()">Add</button></div>
                 <div class="panel-body">
                     <table id="tbl-loaisanpham" class="table table-bordered">
                         <thead class="table-dark">
@@ -50,6 +50,9 @@
 
 <script>
 
+    $(document).ready(function () {
+        loadloaisanphams();
+    });
     function loadloaisanphams() {
         $.ajax({
             type: "GET",
@@ -62,7 +65,7 @@
                         "<td>" + loaisanpham.idloaisanpham + "</td>" +
                         "<td>" + loaisanpham.tenloaisanpham + "</td>" +
                         "<td><button type='button' class='btn btn-warning' onclick='editloaisanpham(" + loaisanpham.idloaisanpham + ")'>Edit</button></td>" +
-                        // "<td><a th:href='@{/loaisanpham/update/{id}(id=${loaisanpham.idloaisanpham})}' class='btn btn-warning' >Edit</a></td>"+
+
                         "<td><button type='button' class='btn btn-danger' onclick='deleteloaisanpham(" + loaisanpham.idloaisanpham + ")'>Delete</button></td>" +
                         "</tr>"
                     );
@@ -74,23 +77,13 @@
         });
     }
 
-    $(document).ready(function () {
-        loadloaisanphams();
-    });
     function openForm() {
-
-
         window.location.href = "/loaisanpham/form";
-
     }
 
     function editloaisanpham(idloaisanpham) {
-
-        // Chuyển hướng đến trang loaisanphamForm.html với tham số idloaisanpham trong URL
         window.location.href = "/loaisanpham/form/" + idloaisanpham;
-
     }
-
 
     function deleteloaisanpham(idloaisanpham) {
         $.ajax({

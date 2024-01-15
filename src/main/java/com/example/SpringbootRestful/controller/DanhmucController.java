@@ -3,8 +3,6 @@ package com.example.SpringbootRestful.controller;
 import com.example.SpringbootRestful.model.Danhmuc;
 import com.example.SpringbootRestful.service.DanhmucService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,17 +28,9 @@ public class DanhmucController {
         return danhmucService.getDanhmucById(id);
     }
 
-    @GetMapping("/byKeyword")
-    public List<Danhmuc>  findDanhmucByKeyword(@RequestParam("keyword") String keyword) {
-        return danhmucService.getByKeyword(keyword);
-    }
-
     @DeleteMapping("/{id}")
     public void deleteDanhmuc(@PathVariable("id") Integer id) {
        danhmucService.deleteDanhmucAndSanphams(id);
     }
 
-    //    public void DeleteDanhmuc(@PathVariable("id") Integer id) {
-//        danhmucService.deleteDanhmuc(id);
-//    }
 }

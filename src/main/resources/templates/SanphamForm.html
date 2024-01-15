@@ -28,37 +28,37 @@
     </ul>
 </nav>
 <div class="container  text-center">
-    <div th:if="${sanpham.idsanpham == null}"><h1>Create New Category</h1></div>
-    <div th:if="${sanpham.idsanpham != null}"><h1>Edit Category</h1></div>
+
     <div class="row">
         <div class="col-sm-4">
+            <div><h1>Sản phẩm</h1></div>
 
-            <form id="frmsanpham" name="frmsanpham" th:object = "${sanpham}">
+            <form id="frmsanpham" name="frmsanpham" >
                 <div class="form-group">
                     
-                    <input type="hidden" id="idsanpham" name="idsanpham" class="form-control" th:field="*{idsanpham}" required> >
-                   
-                    <label class="text-left mt-2 mb-2" for="tensanpham">Tên sản phẩm</label>
-                    <input type="text" id="tensanpham" name="tensanpham"  class="form-control" th:field="*{tensanpham}" required>
-                   
-                    <label class="text-left mt-2 mb-2" for="gia">Giá</label>
-                    <input type="text" id="gia" name="gia"  class="form-control" th:field="*{gia}" required>
-                    
-                    <label class="text-left mt-2 mb-2" for="gia">Danhmuc</label>
-                    <select th:field="${sanpham.danhmuc.iddanhmuc}" class="form-control " id="iddanhmuc" name="iddanhmuc">
-                        <option th:each="lsm: ${listdanhmucs}" th:value="${lsm.iddanhmuc}" th:text="${lsm.tendanhmuc}"></option>
+                    <input type="hidden" id="idsanpham" name="idsanpham" class="form-control"  required>
+
+                    <div align="left"><label class="text-left mt-2 mb-2" for="tensanpham">Tên sản phẩm</label></div>
+                    <input type="text" id="tensanpham" name="tensanpham"  class="form-control"  required>
+
+                    <div align="left"> <label class="text-left mt-2 mb-2" for="gia">Giá</label></div>
+                    <input type="text" id="gia" name="gia"  class="form-control"  required>
+
+                    <div align="left"><label class="text-left mt-2 mb-2" for="gia">Danhmuc</label></div>
+                    <select  class="form-control " id="iddanhmuc" name="iddanhmuc">
+                        <option  ></option>
                     
                     </select>
-                    
-                    <label class="text-left mt-2 mb-2" for="gia">Loại sản phẩm</label>
-                    <select th:field="${sanpham.loaisanpham.idloaisanpham}"  class="form-control " id="idloaisanpham" name="idloaisanpham">
-                        <option th:each="lsp : ${listloaisanpham}" th:value="${lsp.idloaisanpham}" th:text="${lsp.tenloaisanpham}"></option>
+
+                    <div align="left"><label class="text-left mt-2 mb-2" for="gia">Loại sản phẩm</label></div>
+                    <select   class="form-control " id="idloaisanpham" name="idloaisanpham">
+                        <option ></option>
                     </select>
 
                 </div>
                 <div class="form-group">
-                    <div th:if="${sanpham.idsanpham == null}"><a id="save" onclick="addsanpham()" class="btn btn-success">Save</a> <a class="btn btn-success" th:href="@{/sanpham/list}">Back</a></div>
-                    <div th:unless="${sanpham.idsanpham == null}"><a id="update" onclick="updatesanpham()" class="btn btn-success" >Save</a> <a class="btn btn-success" th:href="@{/sanpham/list}">Back</a></div>
+                    <div id="actionButtons"><a id="save" onclick="addsanpham()" class="btn btn-success">Save</a> <a class="btn btn-success" onclick="openSanpham()">Back</a></div>
+                    <div id="updateButtons" style="display:none;"><a id="update" onclick="updatesanpham()" class="btn btn-success" >Update</a> <a class="btn btn-success" onclick="openSanpham()">Back</a></div>
 
                 </div>
             </form>
@@ -69,58 +69,152 @@
 
 <script>
 
-    function addsanpham() {
-        var tensanpham = $("#tensanpham").val();
-        var gia = $("#gia").val();
-        var iddanhmuc = $("#iddanhmuc").val();
-        var idloaisanpham = $("#idloaisanpham").val();
+        $(document).ready(function () {
+            var urlPart = window.location.href.split('/');
+            var idsanpham  = urlPart.slice(-1)[0];
+            console.log(idsanpham);
 
-        $.ajax({
-            type: "POST",
-            url: "/sanpham/save",
-            contentType: "application/json",
-            data: JSON.stringify({ "tensanpham": tensanpham,
-                "gia": gia,
-                "danhmuc": {"iddanhmuc": iddanhmuc},
-                "loaisanpham": {"idloaisanpham": idloaisanpham} }),
-            success: function () {
-                window.location.href = "/sanpham/list";
+                loadSanphamData(idsanpham);
+                loadDanhmucDropdown();
+                loadLoaisanphamDropdown();
+                toggleButtons();
 
-            },
-            error: function (error) {
-                console.log("Error adding danh muc:", error);
-            }
         });
-    }
 
-    function updatesanpham() {
-        var idsanpham = $("#idsanpham").val();
-        var tensanpham = $("#tensanpham").val();
-        var gia = $("#gia").val();
-        var iddanhmuc = $("#iddanhmuc").val();
-        var idloaisanpham = $("#idloaisanpham").val();
+        function loadSanphamData(idsanpham) {
+                $.ajax({
+                    type: "GET",
+                    url: "/sanpham/" + idsanpham,
+                    success: function (data) {
 
-        $.ajax({
-            type: "POST",
-            url: "/sanpham/save",
-            contentType: "application/json",
-            data: JSON.stringify({ "idsanpham": idsanpham, "tensanpham": tensanpham,"gia":gia,"danhmuc": {"iddanhmuc": iddanhmuc},
-                "loaisanpham": {"idloaisanpham": idloaisanpham} }),
-            success: function () {
-                window.location.href = "/sanpham/list";
-            },
-            error: function (error) {
-                console.log("Error updating san pham:", error);
+                        $("#idsanpham").val(data.idsanpham);
+                        $("#tensanpham").val(data.tensanpham);
+                        $("#gia").val(data.gia);
+
+                        loadDanhmucDropdown(data.danhmuc.iddanhmuc);
+                        loadLoaisanphamDropdown(data.loaisanpham.idloaisanpham);
+                        toggleButtons();
+                    },
+                    error: function (error) {
+                        console.log("Error loading san pham data for editing:", error);
+                    }
+                });
             }
-        });
-    }
-    $(document).ready(function () {
-        var urlParams = new URLSearchParams(window.location.search);
-        var idsanpham = urlParams.get('id');
-        if (idsanpham) {
-            editSanpham(idsanpham);
+
+
+            function loadDanhmucDropdown(selectedDanhmucId) {
+                $.ajax({
+                    type: "GET",
+                    url: "/danhmuc/",
+                    success: function (data) {
+                      var dropdown = $("#iddanhmuc");
+                        dropdown.empty();
+
+                        $.each(data, function (index, danhmuc) {
+                            dropdown.append($("<option></option>")
+                                .attr("value", danhmuc.iddanhmuc)
+                                .text(danhmuc.tendanhmuc));
+                        });
+
+                        if (selectedDanhmucId) {
+                            dropdown.val(selectedDanhmucId);
+                        }
+                    },
+                    error: function (error) {
+                        console.log("Error loading danhmuc data:", error);
+                    }
+                });
+            }
+
+            function loadLoaisanphamDropdown(selectedLoaisanphamId) {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/loaisanpham/",
+                    success: function (data) {
+
+                        var dropdown = $("#idloaisanpham");
+                        dropdown.empty();
+
+
+
+                        $.each(data, function (index, loaisanpham) {
+                            dropdown.append($("<option></option>")
+                                .attr("value", loaisanpham.idloaisanpham)
+                                .text(loaisanpham.tenloaisanpham));
+                        });
+
+
+                        if (selectedLoaisanphamId) {
+                            dropdown.val(selectedLoaisanphamId);
+                        }
+                    },
+                    error: function (error) {
+                        console.log("Error loading loaisanpham data:", error);
+                    }
+                });
+            }
+
+
+        function openSanpham() {
+            window.location.href = "/sanpham/list";
         }
-    });
+        function addsanpham() {
+            var tensanpham = $("#tensanpham").val();
+            var gia = $("#gia").val();
+            var iddanhmuc = $("#iddanhmuc").val();
+            var idloaisanpham = $("#idloaisanpham").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/sanpham/save",
+                contentType: "application/json",
+                data: JSON.stringify({ "tensanpham": tensanpham,
+                    "gia": gia,
+                    "danhmuc": {"iddanhmuc": iddanhmuc},
+                    "loaisanpham": {"idloaisanpham": idloaisanpham} }),
+                success: function () {
+                    window.location.href = "/sanpham/list";
+
+                },
+                error: function (error) {
+                    console.log("Error adding danh muc:", error);
+                }
+            });
+        }
+
+        function updatesanpham() {
+            var idsanpham = $("#idsanpham").val();
+            var tensanpham = $("#tensanpham").val();
+            var gia = $("#gia").val();
+            var iddanhmuc = $("#iddanhmuc").val();
+            var idloaisanpham = $("#idloaisanpham").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/sanpham/save",
+                contentType: "application/json",
+                data: JSON.stringify({ "idsanpham": idsanpham, "tensanpham": tensanpham,"gia":gia,"danhmuc": {"iddanhmuc": iddanhmuc},
+                    "loaisanpham": {"idloaisanpham": idloaisanpham} }),
+                success: function () {
+                    window.location.href = "/sanpham/list";
+                },
+                error: function (error) {
+                    console.log("Error updating san pham:", error);
+                }
+            });
+        }
+        function toggleButtons() {
+            var idsanpham = $("#idsanpham").val();
+            if (idsanpham) {
+                $("#updateButtons").show();
+                $("#actionButtons").hide();
+            } else {
+                $("#actionButtons").show();
+                $("#updateButtons").hide();
+            }
+        }
+
 
 
 </script>

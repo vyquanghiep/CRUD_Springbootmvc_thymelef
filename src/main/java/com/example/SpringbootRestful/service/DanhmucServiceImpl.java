@@ -39,11 +39,7 @@ public class DanhmucServiceImpl implements DanhmucService {
         return "Danh muc remove ||" + id;
     }
 
-    @Override
-    //search by key
-    public List<Danhmuc> getByKeyword(String keyword) {
-        return danhmucRepository.findByKeyword(keyword);
-    }
+
 
 
 

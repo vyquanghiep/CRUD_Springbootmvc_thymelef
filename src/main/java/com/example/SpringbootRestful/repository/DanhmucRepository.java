@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface DanhmucRepository extends JpaRepository<Danhmuc, Integer> {
 
-    @Query(value = "select * from danhmuc dm where dm.tendanhmuc like %:keyword% ", nativeQuery = true)
-    List<Danhmuc> findByKeyword(@Param("keyword") String keyword);
+
 
 }

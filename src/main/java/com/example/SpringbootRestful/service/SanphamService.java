@@ -16,6 +16,6 @@ public interface SanphamService {
 
 
 
-    List<Sanpham> getByKeyword(String keyword);
+
 
 }

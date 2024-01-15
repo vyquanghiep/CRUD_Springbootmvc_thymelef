@@ -28,20 +28,20 @@
   </ul>
 </nav>
 <div class="container  text-center">
-  <div th:if="${danhmuc.iddanhmuc == null}"><h1>Create New Category</h1></div>
-  <div th:if="${danhmuc.iddanhmuc != null}"><h1>Edit Category</h1></div>
+
   <div class="row">
     <div class="col-sm-4">
+      <h1 id="formTitle">Danh mục</h1>
 
-      <form id="frmDanhmuc" name="frmDanhmuc" th:object = "${danhmuc}">
+      <form id="frmDanhmuc" name="frmDanhmuc" >
         <div class="form-group">
-          <input type="hidden" id="iddanhmuc" name="iddanhmuc" class="form-control" th:field="*{iddanhmuc}" required> >
-          <label for="tendanhmuc">Tên danh mục</label>
-          <input type="text" id="tendanhmuc" name="tendanhmuc"  class="form-control" th:field="*{tendanhmuc}" required>
+          <input type="hidden" id="iddanhmuc" name="iddanhmuc" class="form-control"  required>
+          <div align="left"><label  for="tendanhmuc">Tên danh mục</label></div>
+          <input type="text" id="tendanhmuc" name="tendanhmuc"  class="form-control"  required>
         </div>
         <div class="form-group">
-          <div th:if="${danhmuc.iddanhmuc == null}"><a id="save" onclick="addDanhmuc()" class="btn btn-success">Save</a> <a class="btn btn-success" th:href="@{/danhmuc/list}">Back</a></div>
-          <div th:unless="${danhmuc.iddanhmuc == null}"><a id="update" onclick="updateDanhmuc()" class="btn btn-success" >Save</a> <a class="btn btn-success" th:href="@{/danhmuc/list}">Back</a></div>
+          <div id="actionButtons"><a id="save" onclick="addDanhmuc()" class="btn btn-success">Save</a> <a class="btn btn-success" onclick="openDanhmuc()">Back</a></div>
+          <div id="updateButtons" style="display:none;"><a id="update" onclick="updateDanhmuc()" class="btn btn-success" >Update</a> <a class="btn btn-success" onclick="openDanhmuc()">Back</a></div>
 
         </div>
       </form>
@@ -51,6 +51,42 @@
 
 
 <script>
+  $(document).ready(function () {
+    var urlPart = window.location.href.split('/');
+    var iddanhmuc  = urlPart.slice(-1)[0];
+    console.log(iddanhmuc);
+    loadDanhmucForm(iddanhmuc);
+    });
+
+  function loadDanhmucForm(iddanhmuc) {
+      $.ajax({
+        type: "GET",
+        url: "/danhmuc/" + iddanhmuc,
+        success: function (data) {
+          $("#iddanhmuc").val(data.iddanhmuc);
+          $("#tendanhmuc").val(data.tendanhmuc);
+          toggleButtons()
+        },
+        error: function (error) {
+          console.log("Error loading danh muc data for editing:", error);
+        }
+      });
+    }
+
+  function openDanhmuc() {
+    window.location.href = "/danhmuc/list";
+  }
+
+  function toggleButtons() {
+    var iddanhmuc = $("#iddanhmuc").val();
+    if (iddanhmuc) {
+      $("#updateButtons").show();
+      $("#actionButtons").hide();
+    } else {
+      $("#actionButtons").show();
+      $("#updateButtons").hide();
+    }
+  }
 
   function addDanhmuc() {
     var tendanhmuc = $("#tendanhmuc").val();
@@ -71,9 +107,8 @@
   }
 
   function updateDanhmuc() {
-    var iddanhmuc = $("#iddanhmuc").val(); // Lấy giá trị từ trường input ẩn
+    var iddanhmuc = $("#iddanhmuc").val();
     var tendanhmuc = $("#tendanhmuc").val();
-
     $.ajax({
       type: "POST",
       url: "/danhmuc/save",
@@ -87,13 +122,7 @@
       }
     });
   }
-  $(document).ready(function () {
-    var urlParams = new URLSearchParams(window.location.search);
-    var iddanhmuc = urlParams.get('id');
-    if (iddanhmuc) {
-      editDanhmuc(iddanhmuc);
-    }
-  });
+
 
 
 </script>

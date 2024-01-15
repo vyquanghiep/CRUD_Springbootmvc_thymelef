@@ -22,9 +22,5 @@ public class Loaisanpham {
     @Column(name="tenloaisanpham")
     private String tenloaisanpham;
 
-//    @OneToMany(mappedBy = "loaisanpham",cascade = CascadeType.ALL)
-//    private Set<Sanpham> sanpham;
-
-
 
 }

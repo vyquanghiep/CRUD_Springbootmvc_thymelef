@@ -28,10 +28,6 @@ public class SanphamController {
         return sanphamService.getSanphamById(id);
     }
 
-    @GetMapping("/byKeyword")
-    public List<Sanpham>  findSanphamByKeyword(@RequestParam("keyword") String keyword) {
-        return sanphamService.getByKeyword(keyword);
-    }
 
     @DeleteMapping("/{id}")
     public void DeleteSanpham(@PathVariable("id") Integer id) {

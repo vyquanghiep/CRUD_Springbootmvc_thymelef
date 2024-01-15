@@ -22,8 +22,7 @@ public class Danhmuc {
     @Column(name = "tendanhmuc")
     private String tendanhmuc;
 
-//    @OneToMany(mappedBy = "danhmuc", cascade = CascadeType.ALL)
-//    private List<Sanpham> sanpham;
+
 }
 
 

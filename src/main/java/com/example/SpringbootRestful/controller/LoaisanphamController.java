@@ -1,8 +1,6 @@
 package com.example.SpringbootRestful.controller;
 
 import com.example.SpringbootRestful.model.Loaisanpham;
-import com.example.SpringbootRestful.model.Loaisanpham;
-
 import com.example.SpringbootRestful.service.LoaisanphamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +26,6 @@ public class LoaisanphamController {
     @GetMapping("/{id}")
     public Loaisanpham findLoaisanphamById(@PathVariable("id") Integer id) {
         return loaisanphamService.getLoaisanphamById(id);
-    }
-
-    @GetMapping("/byKeyword")
-    public List<Loaisanpham>  findLoaisanphamByKeyword(@RequestParam("keyword") String keyword) {
-        return loaisanphamService.getByKeyword(keyword);
     }
 
     @DeleteMapping("/{id}")

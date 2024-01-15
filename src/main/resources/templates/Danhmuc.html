@@ -34,7 +34,7 @@
         <h1 >Quản lý danh mục</h1>
          <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-success mb-2" onclick="openForm()">Add</button>
+                <div align="left"><button type="button" class="btn btn-success mb-2" onclick="openForm()">Add</button></div>
                 <div class="panel-body">
                     <table id="tbl-danhmuc" class="table table-bordered">
                         <thead class="table-dark">
@@ -49,7 +49,9 @@
 </div>
 
 <script>
-
+    $(document).ready(function () {
+        loadDanhmucs();
+    });
     function loadDanhmucs() {
         $.ajax({
             type: "GET",
@@ -62,7 +64,6 @@
                         "<td>" + danhmuc.iddanhmuc + "</td>" +
                         "<td>" + danhmuc.tendanhmuc + "</td>" +
                         "<td><button type='button' class='btn btn-warning' onclick='editDanhmuc(" + danhmuc.iddanhmuc + ")'>Edit</button></td>" +
-                        // "<td><a th:href='@{/danhmuc/update/{id}(id=${danhmuc.iddanhmuc})}' class='btn btn-warning' >Edit</a></td>"+
                         "<td><button type='button' class='btn btn-danger' onclick='deleteDanhmuc(" + danhmuc.iddanhmuc + ")'>Delete</button></td>" +
                         "</tr>"
                     );
@@ -74,21 +75,13 @@
         });
     }
 
-    $(document).ready(function () {
-        loadDanhmucs();
-    });
+
     function openForm() {
-
-
         window.location.href = "/danhmuc/form";
-
     }
 
     function editDanhmuc(iddanhmuc) {
-
-            // Chuyển hướng đến trang DanhmucForm.html với tham số iddanhmuc trong URL
             window.location.href = "/danhmuc/form/" + iddanhmuc;
-
     }
 
 

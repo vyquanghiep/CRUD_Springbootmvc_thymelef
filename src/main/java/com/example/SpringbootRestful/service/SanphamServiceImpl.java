@@ -37,10 +37,7 @@ public class SanphamServiceImpl implements SanphamService{
         return "Sản phẩm remove ||" + id;
     }
 
-    @Override
-    public List<Sanpham> getByKeyword(String keyword) {
-        return sanphamRepository.findByKeyword(keyword);
-    }
+
 
 
 }

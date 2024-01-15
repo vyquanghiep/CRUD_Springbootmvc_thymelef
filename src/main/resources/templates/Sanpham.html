@@ -34,11 +34,11 @@
         <h1 >Quản lý sản phẩm</h1>
         <div class="row">
             <div class="col">
-                <button type="button" class="btn btn-success mb-2" onclick="openForm()">Add</button>
+                <div align="left"><button type="button" class="btn btn-success mb-2" onclick="openForm()">Add</button></div>
                 <div class="panel-body">
                     <table id="tbl-sanpham" class="table table-bordered">
                         <thead class="table-dark">
-                        <tr><th>Mã sản phẩm</th><th>Tên sản phẩm</th><th>Danh mục</th><th>Loại sản phẩm</th><th>Sửa</th><th>Xóa</th></tr>
+                        <tr><th>Mã sản phẩm</th><th>Tên sản phẩm</th><th>Giá</th><th>Danh mục</th><th>Loại sản phẩm</th><th>Sửa</th><th>Xóa</th></tr>
                         </thead>
                         <tbody id="tbl-sanpham-body"></tbody>
                     </table>
@@ -49,7 +49,9 @@
 </div>
 
 <script>
-
+    $(document).ready(function () {
+        loadSanphams();
+    });
     function loadSanphams() {
         $.ajax({
             type: "GET",
@@ -61,10 +63,10 @@
                         "<tr>" +
                         "<td>" + sanpham.idsanpham + "</td>" +
                         "<td>" + sanpham.tensanpham + "</td>" +
+                        "<td>" + sanpham.gia + "</td>" +
                         "<td>" + sanpham.danhmuc.tendanhmuc + "</td>" +
                         "<td>" + sanpham.loaisanpham.tenloaisanpham + "</td>" +
                         "<td><button type='button' class='btn btn-warning' onclick='editSanpham(" + sanpham.idsanpham + ")'>Edit</button></td>" +
-                        // "<td><a th:href='@{/sanpham/update/{id}(id=${sanpham.idsanpham})}' class='btn btn-warning' >Edit</a></td>"+
                         "<td><button type='button' class='btn btn-danger' onclick='deleteSanpham(" + sanpham.idsanpham + ")'>Delete</button></td>" +
                         "</tr>"
                     );
@@ -76,23 +78,13 @@
         });
     }
 
-    $(document).ready(function () {
-        loadSanphams();
-    });
     function openForm() {
-
-
         window.location.href = "/sanpham/form";
-
     }
 
     function editSanpham(idsanpham) {
-
-        // Chuyển hướng đến trang sanphamForm.html với tham số idsanpham trong URL
         window.location.href = "/sanpham/form/" + idsanpham;
-
     }
-
 
     function deleteSanpham(idsanpham) {
         $.ajax({

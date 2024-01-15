@@ -11,6 +11,5 @@ import java.util.List;
 
 public interface LoaisanphamRepository extends JpaRepository<Loaisanpham, Integer> {
 
-    @Query(value = "select * from loaisanpham lsp where lsp.tenloaisanpham like %:keyword% ", nativeQuery = true)
-    List<Loaisanpham> findByKeyword(@Param("keyword") String keyword);
+
 }

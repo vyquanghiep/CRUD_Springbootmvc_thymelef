@@ -42,10 +42,6 @@ public class LoaisanphamServiceImpl implements LoaisanphamService{
         return "loai Sản phẩm remove ||" + id;
     }
 
-    @Override
-    public List<Loaisanpham> getByKeyword(String keyword) {
-        return loaisanphamRepository.findByKeyword(keyword);
-    }
 
     public List<Sanpham> getSanphamsByIdLoaisanpham(int id) {
         return sanphamRepository.findByLoaisanpham_Idloaisanpham(id);

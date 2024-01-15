@@ -26,20 +26,17 @@ public class ViewController {
     SanphamService sanphamService;
 
     @GetMapping("/danhmuc/list")
-    public String danhMuc() {
+    public String Danhmuc() {
         return "Danhmuc";
     }
 
     @GetMapping("/danhmuc/form")
-    public String formDanhMuc(Model model) {
-        Danhmuc danhmuc = new Danhmuc();
-        model.addAttribute("danhmuc",danhmuc);
+    public String addDanhMuc() {
         return "DanhmucForm";
     }
+
     @GetMapping("/danhmuc/form/{id}")
-    public String updateDanhmuc(@PathVariable(value = "id") int id, Model model){
-        Danhmuc danhmuc = danhmucService.getDanhmucById(id);
-        model.addAttribute("danhmuc",danhmuc);
+    public String updateDanhmuc(){
         return "DanhmucForm";
     }
 
@@ -48,46 +45,30 @@ public class ViewController {
     public String Loaisanpham() {
         return "Loaisanpham";
     }
+
     @GetMapping("/loaisanpham/form")
-    public String addLoaisanpham(Model model) {
-        Loaisanpham loaisanpham = new Loaisanpham();
-        model.addAttribute("loaisanpham",loaisanpham);
-        return "LoaisanphamForm";
-    }
-    @GetMapping("/loaisanpham/form/{id}")
-    public String updateLoaisanpham(@PathVariable(value = "id") int id, Model model){
-        Loaisanpham loaisanpham = loaisanphamService.getLoaisanphamById(id);
-        model.addAttribute("loaisanpham",loaisanpham);
+    public String addLoaisanpham() {
         return "LoaisanphamForm";
     }
 
+    @GetMapping("/loaisanpham/form/{id}")
+    public String updateLoaisanpham(){
+        return "LoaisanphamForm";
+    }
 
     //sanpham
     @GetMapping("/sanpham/list")
     public String Sanpham() {
         return "Sanpham";
     }
-    @GetMapping("/sanpham/form")
-    public String addSanpham(Model model) {
 
-        List<Loaisanpham> listloaisanpham = loaisanphamService.getLoaisanphams();
-        //creat modle
-        List<Danhmuc> listdanhmucs = danhmucService.getDanhmucs();
-        Sanpham sanpham = new Sanpham();
-        model.addAttribute("sanpham",sanpham);
-        model.addAttribute("listdanhmucs",listdanhmucs);
-        model.addAttribute("listloaisanpham",listloaisanpham);
+    @GetMapping("/sanpham/form")
+    public String addSanpham() {
         return "SanphamForm";
     }
+    
     @GetMapping("/sanpham/form/{id}")
-    public String updateSanpham(@PathVariable (value = "id") int id, Model model){
-        //creat modle
-        Sanpham sanpham = sanphamService.getSanphamById(id);
-        List<Loaisanpham> listloaisanpham = loaisanphamService.getLoaisanphams();
-        List<Danhmuc> listdanhmucs = danhmucService.getDanhmucs();
-        model.addAttribute("sanpham",sanpham);
-        model.addAttribute("listdanhmucs",listdanhmucs);
-        model.addAttribute("listloaisanpham",listloaisanpham);
+    public String updateSanpham(){
         return "SanphamForm";
     }
 

@@ -28,20 +28,20 @@
     </ul>
 </nav>
 <div class="container  text-center">
-    <div th:if="${loaisanpham.idloaisanpham == null}"><h1>Create New Category</h1></div>
-    <div th:if="${loaisanpham.idloaisanpham != null}"><h1>Edit Category</h1></div>
+
     <div class="row">
         <div class="col-sm-4">
+            <div><h1> Loại sản phẩm</h1></div>
 
-            <form id="frmloaisanpham" name="frmloaisanpham" th:object = "${loaisanpham}">
+            <form id="frmloaisanpham" name="frmloaisanpham" >
                 <div class="form-group">
-                    <input type="hidden" id="idloaisanpham" name="idloaisanpham" class="form-control" th:field="*{idloaisanpham}" required> >
-                    <label for="tenloaisanpham">Tên loại sản phẩm</label>
-                    <input type="text" id="tenloaisanpham" name="tenloaisanpham"  class="form-control" th:field="*{tenloaisanpham}" required>
+                    <input type="hidden" id="idloaisanpham" name="idloaisanpham" class="form-control"  required>
+                    <div align="left"><label for="tenloaisanpham">Tên loại sản phẩm</label></div>
+                    <input type="text" id="tenloaisanpham" name="tenloaisanpham"  class="form-control"  required>
                 </div>
                 <div class="form-group">
-                    <div th:if="${loaisanpham.idloaisanpham == null}"><a id="save" onclick="addloaisanpham()" class="btn btn-success">Save</a> <a class="btn btn-success" th:href="@{/loaisanpham/list}">Back</a></div>
-                    <div th:unless="${loaisanpham.idloaisanpham == null}"><a id="update" onclick="updateloaisanpham()" class="btn btn-success" >Save</a> <a class="btn btn-success" th:href="@{/loaisanpham/list}">Back</a></div>
+                    <div id="actionButtons"><a id="save" onclick="addloaisanpham()" class="btn btn-success">Save</a> <a class="btn btn-success" onclick="openLoaisanpham()">Back</a></div>
+                    <div id="updateButtons" style="display:none;"><a id="update" onclick="updateloaisanpham()" class="btn btn-success" >Update</a> <a class="btn btn-success" onclick="openLoaisanpham()">Back</a></div>
 
                 </div>
             </form>
@@ -51,6 +51,43 @@
 
 
 <script>
+    $(document).ready(function () {
+        var urlPart = window.location.href.split('/');
+        var idloaisanpham  = urlPart.slice(-1)[0];
+        console.log(idloaisanpham);
+        loadLoaisanphamForm(idloaisanpham);
+    });
+        function loadLoaisanphamForm(idloaisanpham){
+        $.ajax({
+            type: "GET",
+            url: "/loaisanpham/" + idloaisanpham ,
+            success: function (data) {
+                $("#idloaisanpham").val(data.idloaisanpham);
+                $("#tenloaisanpham").val(data.tenloaisanpham);
+                toggleButtons()
+            },
+            error: function (error) {
+                console.log("Error loading danh muc data for editing:", error);
+            }
+        });
+        }
+
+
+    function openLoaisanpham() {
+        window.location.href = "/loaisanpham/list";
+    }
+
+    function toggleButtons() {
+        var idloaisanpham = $("#idloaisanpham").val();
+        if (idloaisanpham) {
+            $("#updateButtons").show();
+            $("#actionButtons").hide();
+        } else {
+
+            $("#actionButtons").show();
+            $("#updateButtons").hide();
+        }
+    }
 
     function addloaisanpham() {
         var tenloaisanpham = $("#tenloaisanpham").val();
@@ -87,13 +124,7 @@
             }
         });
     }
-    $(document).ready(function () {
-        var urlParams = new URLSearchParams(window.location.search);
-        var idloaisanpham = urlParams.get('id');
-        if (idloaisanpham) {
-            editloaisanpham(idloaisanpham);
-        }
-    });
+
 
 
 </script>
